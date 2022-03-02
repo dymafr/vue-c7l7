@@ -1,45 +1,15 @@
 <template>
-  <h1>Blog</h1>
-  <button @click="count++">+1</button>
-  <p>{{ count }}</p>
+  <h2>Blog</h2>
 </template>
 
-<script setup lang="ts">
-import {
-  onBeforeMount,
-  onBeforeUnmount,
-  onBeforeUpdate,
-  onMounted,
-  onUnmounted,
-  onUpdated,
-  ref,
-} from 'vue';
+<script lang="ts" setup>
+import { reactive, ref, type Ref } from 'vue';
 
-const count = ref(0);
+const count = ref(15);
+const arrTest = reactive([1,2,3]);
+function display() {
+    console.log('Display')
+}
 
-const intervalId = setInterval(() => {
-  console.log('tick');
-}, 1000);
-
-onBeforeMount(() => {
-  console.log('Avant le montage');
-});
-onMounted(() => {
-  console.log('Après le montage');
-});
-onBeforeUpdate(() => {
-  console.log('Avant la mise à jour');
-});
-onUpdated(() => {
-  console.log('Après la mise à jour');
-});
-onBeforeUnmount(() => {
-  console.log('Avant la destruction / démontage');
-});
-onUnmounted(() => {
-  clearInterval(intervalId);
-  console.log('Démontage');
-});
+defineExpose<{count: Ref<number>, arrTest: number[], display: () => void}>({count, arrTest, display})
 </script>
-
-<style scoped lang="scss"></style>
